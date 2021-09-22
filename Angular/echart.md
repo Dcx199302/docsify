@@ -8,7 +8,7 @@
 
 #### **angular.ts**
 
-```typescript
+```javascript
 import { Component, OnInit } from '@angular/core';
 
 

@@ -8,6 +8,7 @@
         * [表单form](Angular/form.md) 
         * [父子交互](Angular/interaction.md) 
         * [echarts](Angular/echart.md) 
+        * [antd](Angular/AntdThemes.md) 
         * [进阶](Angular/Preintermediate.md) 
 
 <!-- * [React](React/)
