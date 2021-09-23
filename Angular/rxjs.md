@@ -53,15 +53,19 @@ fromEvent(document, 'click')
 
 
 
+
+
 #### 三、Flow流程
 
 - RxJS 有一系列的操作符，可以帮助你控制事件如何通过你的 observables。
 
 实现：每秒最多允许一次点击
 
+
+
 <!-- tabs:start -->
 
-##### **纯 JavaScript** 
+##### **纯 JavaScript**
 
 ```javascript
 let count = 0;
@@ -74,6 +78,8 @@ document.addEventListener('click', () => {
   }
 });
 ```
+
+
 
 ##### **RxJS**
 
@@ -89,6 +95,8 @@ fromEvent(document, 'click')
   .subscribe(count => console.log(`Clicked ${count} times`));
 ```
 
+
+
 <!-- tabs:end -->
 
 
@@ -98,6 +106,10 @@ fromEvent(document, 'click')
 - 您可以转换通过 observable 传递的值。
 
 实现：每次点击添加当前鼠标 x 位置值的方法
+
+
+
+<!-- tabs:start -->
 
 ##### **javascript**
 
@@ -113,6 +125,8 @@ document.addEventListener('click', event => {
   }
 });
 ```
+
+
 
 ##### **Rxjs**
 
@@ -131,7 +145,7 @@ fromEvent(document, 'click')
 
 
 
-
+<!-- tabs:end -->
 
 
 

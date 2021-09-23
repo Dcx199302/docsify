@@ -10,6 +10,7 @@
         * [echarts](Angular/echart.md) 
         * [antd](Angular/AntdThemes.md) 
         * [进阶](Angular/Preintermediate.md) 
+        * [rxjs](Angular/rxjs.md)
 
 <!-- * [React](React/)
 * [Vue](Vue/) -->
