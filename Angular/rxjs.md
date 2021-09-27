@@ -158,7 +158,12 @@ fromEvent(document, 'click')
 -  adj. 显著的；觉察得到的；看得见的 ; 可观察对象;
 - 以下是一个 Observable，它在订阅时立即（同步）推送值`1`, `2`，`3`以及`4`自 subscribe 调用后经过一秒后的值，然后完成：
 
+<!-- panels:start -->
+
+<!-- div:left-panel -->
+
 ```javascript
+
 import { Observable } from 'rxjs';
  
 const observable = new Observable(subscriber => {
@@ -181,17 +186,34 @@ observable.subscribe({
 console.log('just after subscribe');
 ```
 
-输出结果：
+<!-- div:right-panel -->
 
-```js
-just before subscribe
-got value 1
-got value 2
-got value 3
-just after subscribe
-got value 4
-done
+```javascript
+//左边代码输出 -- rxjs是非异步的
+//just before subscribe
+//got value 1
+//got value 2
+//got value 3
+//just after subscribe
+//got value 4
+//done
+
+import { from } from 'rxjs';
+//1. 发布
+const observable = from([10, 20, 30]);
+//2. 订阅
+let subscription = observable.subscribe(x => console.log(x))
+// Later:  3. 取消订阅
+subscription.unsubscribe();
+
+//发送三种状态出去， 
+//next 数据 
+//error 错误 
+//complete 完成
+
 ```
+
+<!-- panels:end -->
 
 
 
@@ -200,63 +222,191 @@ done
 - n. 观察者，目击者；观察家，评论员；（会议等的）观察员
 
 ```javascript
+import { Observable } from 'rxjs';
+//第一种：
+    // 1.创建可观察对象
+    const observable = new Observable(sub=>{
+        sub.next(999)
+    })
+
+    // 2.观察者
+    const observer = {
+        next: x => console.log('Observer got a next value: ' + x),
+        error: err => console.error('Observer got an error: ' + err),
+        complete: () => console.log('Observer got a complete notification'),
+      };
+
+    // 3. 可观察对象.订阅 (观察者)
+    observable.subscribe(observer)
+
+    // 输出结果
+    // Observer got a next value: 999
+
+//第二种方式：
+ observable.subscribe(x => console.log('Observer got a next value: ' + x));
 ```
 
 
 
 #### **Operators**
 
-- 经营者；操作者；[计] 运算符； 操作符 ；
+- [计] 运算符； 操作符 ；--- 经营者；操作者；
+- 运算符是**函数**。有两种运算符
+  - 管道传输到 Observables 的**运算符**`observableInstance.pipe(operator())`  可观察到的实例
+  - **创建运算符**是另一种运算符，可以作为独立函数调用以创建新的 Observable
 
 ```javascript
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+of(1, 2, 3).pipe(map((x) => x * x)).subscribe((v) => console.log(`value: ${v}`));
+  
+// 输出:
+// value: 1  value: 4   value: 9
+
+//创建运算符 ： of(1,2,3) 
+//管道运算符 ： observable.pipe(map(x=>{x * x}))     pipe：管道    这里的map是rxjs的运算符
 ```
 
 
+
+<!-- panels:start -->
+
+<!-- div:title-panel -->
+
+##### 常用操作符
+
+<!-- div:left-panel -->
+
+```javascript
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+of(1, 2, 3)
+  .pipe(map((x) => x * x))     //运算符map类似于同名的 Array 方法。就像[1, 2, 3].map(x => x * x)
+  .subscribe((v) => console.log(`value: ${v}`));
+// 输出:
+// value: 1   value: 4   value: 9
+
+of(1, 2, 3)
+  .pipe(first())
+  .subscribe((v) => console.log(`value: ${v}`));
+// 输出:
+// value: 1
+
+obs.pipe(op1(), op2(), op3(), op4());  //使用了多个操作符
+```
+
+
+
+<!-- div:right-panel -->
+
+**创建运算符**
+
+创建操作符是可用于创建具有一些常见预定义行为的 Observable 或通过加入其他 Observable 的函数。
+
+典型示例是`interval`函数。它接受一个数字（不是 Observable）作为输入参数，并返回一个Observable
+
+```javascript
+import { interval } from 'rxjs';
+const observable = interval(1000 /* number of milliseconds */);
+```
+
+
+
+<!-- panels:end -->
 
 #### **Subscription**
 
 - 捐献；订阅；订金；签署
 
+<!-- panels:start -->
+
+<!-- div:title-panel -->
+
+- Subscription 本质上只有一个`unsubscribe()`功能来释放资源或取消 Observable 执行。
+- 通过将一个订阅“add添加”在一起，这样`unsubscribe()`对一个订阅中的一个的调用可以取消多个订阅。
+- Subscriptions 也有一个`remove(otherSubscription)`方法，用于撤销子 Subscription 的添加。
+
+<!-- div:left-panel -->
+
 ```javascript
+import { interval } from 'rxjs';
+ 
+const observable1 = interval(400);
+const observable2 = interval(300);
+ 
+const subscription = observable1.subscribe(x => console.log('first: ' + x));
+const childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+ 
+subscription.add(childSubscription);
+ 
+setTimeout(() => {
+  // Unsubscribes BOTH subscription and childSubscription 取消订阅和子订阅  
+  subscription.unsubscribe();
+}, 1000);
 ```
+
+
+
+<!-- div:right-panel -->
+
+```javascript
+//logs 输出
+//second: 0
+//first: 0
+//second: 1
+//first: 1
+//second: 2
+```
+
+
+
+<!-- panels:end -->
 
 
 
 #### **Subject**
 
 - 主题；起因；科目；主词
+- RxJS Subject 是一种特殊类型的 Observable，它允许将值多播到许多观察者。虽然普通的 Observable 是单播的（每个订阅的 Observer 拥有一个独立的 Observable 执行），但Subject是多播的。
 
 ```javascript
+import { from,Subject  } from 'rxjs';
+
+const Asubject = new Subject();
+Asubject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+Asubject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+ 
+const Bobservable = from([1, 2, 3]);
+Bobservable.subscribe(Asubject); // 您可以订阅提供的主题(Subject)
+Bobservable.subscribe({
+        next:(e)=>{console.log(e)}		
+    }); // 您可以订阅提供的主题(Subject)
 ```
-
-
-
-#### **Scheduler**
-
-- n. 计划员；时间调度员；程序机，调度机；调度程序；制表人;  调度器
-
-```javascript
-```
-
-
-
-#### **Testing RxJS Code with Marble Diagrams**
-
-- 用(大理石图, 弹珠图 )测试RxJS代码
-
-```javascript
-```
-
-
 
 <!-- tabs:end -->
 
 
 
+## 三、概述详情
+
+### 一、Observable可观察对象
 
 
 
+<!-- panels:start -->
 
-<!-- tsbs:start -->
+<!-- div:left-panel -->
 
-<!-- tsbs：end -->
+456
+
+<!-- div:right-panel -->
+
+789
+
+<!-- panels:end -->

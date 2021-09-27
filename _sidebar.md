@@ -11,6 +11,8 @@
         * [antd](Angular/AntdThemes.md) 
         * [进阶](Angular/Preintermediate.md) 
         * [rxjs](Angular/rxjs.md)
+        * [rxjs概括](Angular/rxjs_sum.md)
+        * [rxjs操作符](Angular/rxjs_operator.md)
 
 <!-- * [React](React/)
 * [Vue](Vue/) -->
