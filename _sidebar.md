@@ -2,7 +2,8 @@
 
 * Angular教程📕
     * [理论知识](Angular/) 
-    * 日常📕
+    * [初学An](Angular/Angular_init.md) 
+    * 一、An日常📕
         * [Angular](Angular/angular.md) 
         * [常用基础](Angular/basics.md) 
         * [表单form](Angular/form.md) 
@@ -10,6 +11,7 @@
         * [echarts](Angular/echart.md) 
         * [antd](Angular/AntdThemes.md) 
         * [进阶](Angular/Preintermediate.md) 
+    * 二、Rxjs📕
         * [rxjs](Angular/rxjs.md)
         * [rxjs概括](Angular/rxjs_sum.md)
         * [rxjs操作符](Angular/rxjs_operator.md)
