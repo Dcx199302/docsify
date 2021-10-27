@@ -6,6 +6,7 @@
 #### 一、tabs分栏
 注释开头 注释结尾
  <!-- tabs:start -->
+
 #### **写法**
 
 ```javascript
@@ -114,7 +115,7 @@ export class NzDemoFormNormalLoginComponent implements OnInit {
 
 <!-- div:left-panel -->
 ```ts
-
+//看下面第三条
     <徐!-- panels:start -->
         <成!-- div:title-panel -->
                     标题栏
@@ -134,3 +135,25 @@ export class NzDemoFormNormalLoginComponent implements OnInit {
 
 "徐成东修改"
 <!-- panels:end -->
+
+
+
+#### 三、左右分栏
+
+```css
+<!-- panels :start -->
+<!-- div :title-panel -->
+
+去除冒号前面的空格
+
+<!-- div :left-panel -->
+
+1
+
+<!-- div :right-panel -->
+
+2
+
+<!-- panels :end -->
+```
+
