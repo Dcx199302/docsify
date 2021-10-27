@@ -15,7 +15,7 @@
     A内容
     #### **分页B**
     A内容
-    <!-- tabs:start -->
+    <!-- tabs:end -->
 ```
 
 #### **JavaScript**
