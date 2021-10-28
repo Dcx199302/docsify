@@ -9,7 +9,7 @@
 
 #### **模块app.module.ts**
 
-```typescript
+```javascript
 import {AppComponent} from './app.component'
 import {HelloComponent} from './helle/hello.component'
 

@@ -12,7 +12,9 @@
         * [antd](Angular/AntdThemes.md) 
     * 二、An进阶🎡
         * [组件交互](Angular/Preintermediate.md) 
-        * [路由](Angular/router.md) 
+        * [路由](Angular/router.md)
+    * 三、Angular基础汇总🎡
+        * [基础汇总](Angular/merge.md)
 
 * TypeScript教程📕
     * [TS](TypeScript/)
