@@ -1,124 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
-  <!-- Theme: Simple -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
-  
-<style>
-  :root {
-   
-    /**分页标签样式*/
-    --docsifytabs-border-color: #000000;
-    --docsifytabs-tab-highlight-color: red;
-    --docsifytabs-tab-background:#2495ff;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Description" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
+    <!-- Theme: Simple -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"
+    />
 
-    --code-theme-background: #002b36;
-    --code-theme-tag:#1c73c4;
-    --code-theme-keyword:rgb(106, 190, 37);
-    --code-theme-selector:rgb(133, 133, 133);
-    --code-theme-punctuation:rgb(2, 158, 41);
-    --code-theme-comment:rgb(156, 156, 156);
-    --code-theme-text:rgb(220, 220, 220);
-    --border-radius-m:14px;
-    --code-theme-function:rgb(0, 119, 255);
+    <style>
+      :root {
+        /**分页标签样式*/
+        --docsifytabs-border-color: #000000;
+        --docsifytabs-tab-highlight-color: red;
+        --docsifytabs-tab-background: #2495ff;
 
-    /**
+        --code-theme-background: #002b36;
+        --code-theme-tag: #1c73c4;
+        --code-theme-keyword: rgb(106, 190, 37);
+        --code-theme-selector: rgb(133, 133, 133);
+        --code-theme-punctuation: rgb(2, 158, 41);
+        --code-theme-comment: rgb(156, 156, 156);
+        --code-theme-text: rgb(220, 220, 220);
+        --border-radius-m: 14px;
+        --code-theme-function: rgb(0, 119, 255);
+        --code-inline-background: rgb(67, 98, 235);
+
+        /**
      下面是左右分栏的自定义样式
     */
-      /* Document */
+        /* Document */
         --docsify-example-panels-document-width: 90%;
 
-      /* Wrapper */
-      --docsify-example-panels-wrapper-width: 100%;
+        /* Wrapper */
+        --docsify-example-panels-wrapper-width: 100%;
 
-      /* Standards */
-      --docsify-example-panels-padding-inner : 8px 16px;
-      --docsify-example-panels-padding-surroundings : 0px;
+        /* Standards */
+        --docsify-example-panels-padding-inner: 8px 16px;
+        --docsify-example-panels-padding-surroundings: 0px;
 
-      /* Panel Left */
-      --docsify-example-panels-left-panel-background : transparent;
-      --docsify-example-panels-left-panel-width : 60%;
+        /* Panel Left */
+        --docsify-example-panels-left-panel-background: transparent;
+        --docsify-example-panels-left-panel-width: 60%;
 
-      /* Panel Right */
-      --docsify-example-panels-right-panel-background : transparent;
-      --docsify-example-panels-right-panel-width : 40%;
+        /* Panel Right */
+        --docsify-example-panels-right-panel-background: transparent;
+        --docsify-example-panels-right-panel-width: 40%;
 
-      /* Titles */
-      --docsify-example-panels-title-background: transparent;
-  }
-  .app-nav:not(:empty) ~ main .markdown-section{
-    padding: 0px;
-  }
-  ::selection{
-    color:#0026ff9d;
-    }
-    
-</style>
-
-</head>
-<body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: '',
-      repo: '',
-      loadNavbar: true,
-      loadSidebar: true,
-      subMaxLevel: 3,
-      sidebarDisplayLevel:1,
-      auto2top:true,
-      tabs: {
-        persist    : true,      // default
-        sync       : false,      // default
-        /**
+        /* Titles */
+        --docsify-example-panels-title-background: transparent;
+      }
+      .app-nav:not(:empty) ~ main .markdown-section {
+        padding: 0px;
+      }
+      ::selection {
+        color: #0026ff9d;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      window.$docsify = {
+        name: "",
+        repo: "",
+        loadNavbar: true,
+        loadSidebar: true,
+        subMaxLevel: 3,
+        sidebarDisplayLevel: 1,
+        auto2top: true,
+        tabs: {
+          persist: true, // default
+          sync: false, // default
+          /**
         theme
             Type: string|boolean
             Accepts: 'classic', 'material', false
             Default: 'classic'
         */
-        theme      : 'material', // default
-        tabComments: true,      // default
-        tabHeadings: true       // default
-      },
-      pagination: {
-        previousText: '上一章节',
-        nextText: '下一章节',
-        crossChapter: true,
-        crossChapterText: true,
-      },
-      search: {
-        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
-        // 支持本地化
-        placeholder: '搜索',
-        noData: '没有数据',
-        // 搜索标题的最大程级, 1 - 6
-        depth: 3
-      }
-    }
-  </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+          theme: "material", // default
+          tabComments: true, // default
+          tabHeadings: true, // default
+        },
+        pagination: {
+          previousText: "上一章节",
+          nextText: "下一章节",
+          crossChapter: true,
+          crossChapterText: true,
+        },
+        search: {
+          maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+          // 支持本地化
+          placeholder: "搜索",
+          noData: "没有数据",
+          // 搜索标题的最大程级, 1 - 6
+          depth: 3,
+        },
+      };
+    </script>
+    <!-- Docsify v4 -->
+    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 
     <!-- docsify-tabs tab分页标签 (latest v1.x.x) -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
 
-  <!-- docsify-example-panels 左右分栏 (latest) -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify-example-panels"></script>
+    <!-- docsify-example-panels 左右分栏 (latest) -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-example-panels"></script>
 
     <!-- docsify-pagination 前后一页  -->
     <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
 
     <!--搜索-->
     <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
-    
+
     <!--  -->
     <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
-    
-</body>
+  </body>
 </html>
