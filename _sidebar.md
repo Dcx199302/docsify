@@ -30,12 +30,19 @@
     - [rxjs 操作符](Rxjs/rxjs_operator.md)
 
 - Flutter 教程 📕
+
   - [Flutter](Flutter/)
   - [环境准备](Flutter/environment.md)
   - [基础](Flutter/base.md)
 
-<!-- * [React](React/)
-* [Vue](Vue/) -->
+- 微信小程序 教程 📕
+
+  - [导航](miniProgram/)
+  - [基准](miniProgram/Based.md)
+  - [自定义组件](miniProgram/component.md)
+
+  <!--  [React](React/)
+   [Vue](Vue/) -->
 
 <!-- * [docsify](docsify/ "Docsify-我的配置")
 * [教程](docsify/course.md "Docsify-简单教程") -->
