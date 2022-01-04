@@ -19,27 +19,3 @@ void main(){
 ```
 
 - pubspec.yaml ：依赖配置文件，类似node_module依赖配置
-
-## 一、控件
-
-### return MaterialApp（） 原材料App
-
-### return Scaffold （）脚手架
-
-
-
-### return Center （）中心
-
-### return container（） 容器
-
-
-
-### new Text（）文字
-
-### new Stack（）一堆，多个 + new Positioned（）放置
-
-### 
-
-
-
-## 二、组件
