@@ -49,6 +49,5 @@ const appInstance = getApp()
 console.log(appInstance.globalData) // I am global data
 ```
 
-### **Page页面**
 
 <!-- tabs:end -->
