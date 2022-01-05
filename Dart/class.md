@@ -3,7 +3,7 @@
 - 对象继承于Object类
 - new可以省略
 
-# 类与对象1
+## 类与对象1
 
 <!-- tabs:start -->
 
@@ -370,17 +370,388 @@ void main() {
 
 
 
+### **对象call方法**
+
+- 如何类实现了`call()`方法，则该类的对象可以作为方法使用
+
+```javascript
+class Person {
+  late String name;
+  late int age;
+
+// 1. 注册call 方法
+  String call(String name, int age) {
+    return "Name is $name,Ang is $age";
+  }
+}
+
+void main() {
+  //2. new 对象
+  var person = new Person();
+
+  // 2.因为有call, 可以将person对象当成方法调用
+  print(person("张三", 18));
+}
+
+```
+
+<!-- tabs:end -->
 
 
 
+## 面向对象编程2
+
+<!-- tabs:start -->
+
+### **继承**
+
+- 继承，继承中的构造方法
+- 使用关键字`extends`继承一个类
+- 子类会继承父类可见的属性和方法，不会继承构造方法
+- 子类能够复写父类的方法、`getter`和`setter`
+- 单继承、多态性
+
+```javascript
+//person.dart  父类
+class Person {
+  late String name;
+  late int age;
+  late String _birthday = "2020.1.1";
+
+  bool get isAdult => age > 18;
+
+  void run() {
+    print("Person run.....");
+  }
+}
+```
+
+
+
+```javascript
+//mian.dart  子类导入父类并继承使用
+
+import 'person.dart';
+
+class Student extends Person {
+  void study() {
+    print("Student study ...");
+  }
+
+  @override //可写可不写,覆写父类方法（重写）  提示作用
+  bool get isAdult => age > 15;
+
+  @override //多个覆写
+  void run() {
+    // super.run(); //super : 在子类里面  调用 父类的方法
+    print("Student");
+  }
+}
+
+main() {
+  var study = new Student();
+  study.study();
+  study.name = "Tom";
+  study.age = 16;
+
+  print(study.isAdult);
+
+  study.run();
+
+  // Person 的 私有属性无法导入
+  // study._birthday = '10'; //error
+}
+```
+
+
+
+```javascript
+  //多态
+	Person study = new Student();   //只能使用父类的方法属性
+	Student study = new Student();	//可以使用父类和自己的属性方法
+```
+
+
+
+### **继承的构造方法**
+
+- 子类的`构造方法默认`会调用`父类`的`无名无参`构造方法
+- `有名有参`或`有参`的构造方法需要手动 super调用。 IDE会提示
+
+```javascript
+class Person {
+  late String name;
+
+  // 默认构造方法 -- 无名无参的
+  // Person() {
+  //   print("继承会默认调用的方法");
+  // }
+
+  Person(this.name); //1.无名有参 - 构造方法
+  // Person.withName(this.name); //1.有名有参 - 构造方法
+}
+
+class Student extends Person {
+  late int age;
+
+  // 2.需要显式的调用父类方法中的 一种
+  Student(String name) : super(name); //调用无名称的
+  // Student(String name) : super.withName(name);    //调用有名称的
+}
+
+main() {
+  // var student = new Student("张三"); //  print("调用了方法");
+}
+```
+
+
+
+### **执行顺序**
+
+- `父类的构造方法`会在`子类构造方法体`开始执行前的位置调用
+- 如果有`初始化列表`，`初始化列表`会在`父类构造`方法`之前`执行。 看前面的`初始化列表`
+
+```java
+.....省略前面Person
+    
+class Student extends Person {
+  late int age;
+
+  final String gender;
+  // 2.需要显式的调用父类方法中的 一种
+  Student(String name, String ggg)
+      : gender = ggg,
+        super(name); //调用无名称的
+  // Student(String name) : super.withName(name);    //调用有名称的
+}
+
+main() {
+  var student = new Student("张三", "GGG"); //  print("调用了方法");
+}
+```
+
+
+
+### 抽象类
+
+- 抽象类使用`abstract`表示，不能直接被实例化
+- 抽象方法不用`abstract`修饰、无实现
+- 抽象类可以没有抽象方法
+
+```javascript
+//例子：
+abstract class Person {
+    void run();   //抽象类的方法都是 - 抽象方法 
+}
+
+void main() {
+    //抽象类 abstract class Person 不能被实例化
+  var person = new Person(); //error 错误
+}
+```
+
+- 有`抽象方法的类` 一定得 `声明成抽象类`
+- 抽象类不能被实例化、但是`可以被继承`
+
+```javascript
+//abstract :抽象类
+abstract class Person {
+  void run();
+}
+
+//继承于抽象类
+class Student extends Person {
+  @override //覆写抽象类的抽象方法成 普通方法
+  void run() {
+    print("object");
+  }
+}
+
+void main() {
+  var person = new Student();
+  person.run();
+}
+```
+
+### **接口**
+
+- 类和接口是统一的。`类就是接口`
+
+```javascript
+//使用抽象类作为接口更合适  abstract : 抽象的
+abstract class Person {
+  void run() {}
+}
+
+//使用implements : 实现
+class Student implements Person {
+  @override
+  void run() {
+    print("Student run.....");
+  }
+}
+```
+
+- 没个类都`隐式的定`义了一个包含`所有实例成员`的`接口`
+- 如果是`复用已有类`的实现，使用继承`(extends)`
+- 如果只是使用已有类的外在行为，使用接口 `(implements)`
+
+```javascript
+class Person {
+  late String name;
+  int get age => 18;
+
+  void run() {
+    print("Person run ...");
+  }
+}
+
+//使用继承
+// class Student extends Person {}
+
+// 使用接口   需要重写 Person 所有的属性和方法   //系统会生成所有  @override
+class Student implements Person {
+  @override
+  late String name;
+
+  @override
+  int get age => 15;
+
+  @override
+  void run() {}
+}
+
+void main() {
+  var person = new Student();
+}
+```
+
+
+
+### **Mixins**
+
+- Mixins`类似`于多继承，是在`多类继承`中`重用`一个类代码的方式
+- 作为Mixin的类，`不能有显示声明构造方法` 
+- 只能继承至`Object` 
+- 使用`implements`接口实现的可以使用`Mixins`
+- 使用`with`链接一个或多个类
+
+```javascript
+class A {
+  void a() {
+    print("A.a()...");
+  }
+}
+
+class B {
+  void b() {
+    print("A.b()...");
+  }
+}
+
+class C {
+  // C(){},  //显式的构造方法，有名，有参都不行
+    
+  void c() {
+    print("A.c()...");
+  }
+}
+
+class E extends C {}  //已经继承过除了Object的类。不能使用mixins混入
+
+/**
+ * 需求：同时拥有A、B、C三个类的方法
+ * class D extends A,B,C {}   //false  dart并不支持多继承
+ * 使用 Mixins 的 with  ---- 需要先继承一个A才能使用with B、C
+ * 如果A、B、C类中有重复的属性或方法: 使用最后Mixins混入的方法、 C>B>A
+ */
+
+class D extends A with B, C {}
+```
+
+- 简写
+
+  ```javascript
+  //一下两种写法是一样的
+  //class E = A with B, C;
+  //class E extends A with B, C {}
+  ```
+
+
+
+### **操作符重写**
+
+##### 很骚的东西、用到再学吧
+
+- 覆写操作符需要在类中定义
+
+  ```javascript
+  返回类型 operator 操作符(参数1,参数2,...){
+                    实现体...
+                    return 返回值
+  }
+  ```
+
+- 如果需要覆写`==`号,还需要覆写对象的`hashCode getter`方法
+
+```javascript
+//可以覆写的操作符：
+< > <= >= - + / ~/ * % | & << >> [] []= ~ ==  ......
+```
 
 
 
 <!-- tabs:end -->
 
-----
+
+
+### 枚举&泛型
 
 <!-- tabs:start -->
+
+### **枚举**
+
+- 使用关键字`enum`定义一个枚举
+- 常用于代替常量，控制语句等
+- 枚举特性
+  - index 从 0开始，依次累加
+  - 不能指定原始值
+
+```javascript
+// 季节
+enum Season { spring, summer, autumn, winter }
+
+void main() {
+  var currentSeason = Season.autumn; //打印 7-9 月
+
+  print(currentSeason.index);  //index从 0开始,不能指定值
+    
+  switch (currentSeason) {
+    case Season.spring:
+      print("1-3月");
+      break;
+    case Season.summer:
+      print("4-6月");
+      break;
+    case Season.autumn:
+      print("7-9月");
+      break;
+    case Season.winter:
+      print("10-12月");
+      break;
+    // default:
+  }
+}
+```
+
+
+
+### **泛型**
+
+- Dart中类型是可选的，可使用`泛型限制类型`
+
+```javascript
+```
 
 
 
